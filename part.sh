@@ -23,12 +23,13 @@ HOME=
 VAR=
 if (( $#>0)) 
 then 
-	if[[ ${1:0:2} == '--all']] 
+	if[[ ${1:0:2} ]] 
 	then
+		VOl+=$1
 		DIDO=1 
 		shift
 	fi
-	if [[ ${1:0:2} == '--divide' ]]	
+	if [[ ${1:0:2}  ]]	
 	then 
 		DIDO=2 
 		while [ $DIDO == 2 ]
@@ -40,7 +41,6 @@ then
 					VOL+=($asset)
 				done
 		done 
-
 	fi
 fi
 SYSNAM=$(hostname) 
@@ -54,7 +54,6 @@ fi
 cd  || exit -2 
 wevtutil el | while read ALOG
 do 
-  
 	echo "${ }:"
 	DVOLNAM="${}"
 	RAMSIZE="${}" 
