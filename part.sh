@@ -15,35 +15,46 @@
 DIDO=0 
 DDAL=0
 LRAM=0
-VOL=[]
+VOL={}
+BOOT=
+ROOT= 
+TMP= 
+HOME=
+VAR=
 if (( $#>0)) 
 then 
 	if[[ ${1:0:2} == '--all']] 
 	then
 		DIDO=1 
-    
 		shift
 	fi
-       if [[ ${1:0:2 == '--divide' ]]	
-       then 
-	       DIDO=2 
+	if [[ ${1:0:2} == '--divide' ]]	
+	then 
+		DIDO=2 
+		while [ $DIDO == 2 ]
+		do
+			VOL+=$2
+			DDAL+= $(df -b ${VOL[1]} | awk '')
+			for asset in ${VOL[1]}
+				do 
+					VOL+=($asset)
+				done
+		done 
+
 	fi
 fi
 SYSNAM=$(hostname) 
 if [[ -w  ]]
 then 
-	mkfs.ext4 
+	do 
+		(df -b )
 else 
   partx
 fi 	
 cd  || exit -2 
 wevtutil el | while read ALOG
 do 
-	BOOT=
-  ROOT= 
-  TMP= 
-  HOME=
-  VAR=
+  
 	echo "${ }:"
 	DVOLNAM="${}"
 	RAMSIZE="${}" 
