@@ -13,14 +13,14 @@
 #
 
 DIDO=0 
-DDAL=0
-LRAM=0
+DDAL=
+LRAM={}
 VOL={}
-BOOT=
-ROOT= 
-TMP= 
-HOME=
-VAR=
+BOOT=( df -F $Vol[1] || fdisk ) 
+ROOT=( if[ df -F ] ; then ; else  ) 
+TMP= ( if[ df -F ] ; then ; else  ) 
+HOME= ( if[ df -F ] ; then ; else  ) 
+VAR= ( if[ df -F ] ; then ; else  ) 
 if (( $#>0)) 
 then 
 	if[[ ${1:0:2} ]] 
@@ -31,15 +31,14 @@ then
 	fi
 	if [[ ${1:0:2}  ]]	
 	then 
+ 		VOL+=$2
 		DIDO=2 
+  		shift
 		while [ $DIDO == 2 ]
 		do
-			VOL+=$2
-			DDAL+= $(df -b ${VOL[1]} | awk '')
+			VOL+= $(df -b ${VOL[1]} | awk '')
 			for asset in ${VOL[1]}
-				do 
-					VOL+=($asset)
-				done
+				VOL+=($asset)
 		done 
 	fi
 fi
@@ -55,8 +54,7 @@ cd  || exit -2
 wevtutil el | while read ALOG
 do 
 	echo "${ }:"
-	DVOLNAM="${}"
-	RAMSIZE="${}" 
+	 
 
 done 
 
