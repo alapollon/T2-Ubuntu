@@ -46,7 +46,7 @@ SYSNAM=$(hostname)
 if [[ -w  ]]
 then 
 	do 
-		(df -b )
+ 		
 else 
   partx
 fi 	
